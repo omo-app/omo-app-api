@@ -1,16 +1,15 @@
 package com.findev.omo.config;
 
-import com.findev.omo.common.security.EntryPointUnauthorizedHandler;
-import com.findev.omo.common.security.Jwt;
-import com.findev.omo.common.security.JwtAccessDeniedHandler;
+import com.findev.omo.common.security.*;
 
-import com.findev.omo.common.security.JwtAuthenticationTokenFilter;
 import com.findev.omo.model.user.Role;
+import com.findev.omo.service.MemberService;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.security.access.AccessDecisionManager;
 import org.springframework.security.access.AccessDecisionVoter;
 import org.springframework.security.access.vote.UnanimousBased;
+import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.builders.WebSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
@@ -53,8 +52,19 @@ public class WebSecurityConfigure extends WebSecurityConfigurerAdapter {
   }
 
   @Bean
+  public JwtAuthenticationProvider jwtAuthenticationProvider(Jwt jwt, MemberService memberService) {
+    return new JwtAuthenticationProvider(jwt, memberService);
+  }
+
+  @Bean
   public PasswordEncoder passwordEncoder() {
     return new BCryptPasswordEncoder();
+  }
+
+  @Bean
+  @Override
+  public AuthenticationManager authenticationManagerBean() throws Exception {
+    return super.authenticationManagerBean();
   }
 
   @Bean

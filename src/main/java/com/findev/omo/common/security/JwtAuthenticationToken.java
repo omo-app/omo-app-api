@@ -15,7 +15,6 @@ public class JwtAuthenticationToken extends AbstractAuthenticationToken {
    *
    * 컨트롤러에서 {@link org.springframework.security.core.annotation.AuthenticationPrincipal} 어노테이션을 사용하면 쉽게 접근할 수 있다.
    * 단, 인증이 정상적으로 완료된 경우에만 사용해야 한다는 것에 주의한다.
-   * ({@link com.github.prgrms.social.controller.user.UserRestController#me} 참고)
    */
   private final Object principal;
 
@@ -64,11 +63,11 @@ public class JwtAuthenticationToken extends AbstractAuthenticationToken {
     credentials = null;
   }
 
-  @Override
-  public String toString() {
-    return "JwtAuthenticationToken{" +
-      "principal=" + principal +
-      ", credentials='" + credentials + '\'' +
-      '}';
-  }
+//  @Override
+//  public String toString() {
+//    return "JwtAuthenticationToken{" +
+//      "principal=" + principal +
+//      ", credentials='" + credentials + '\'' +
+//      '}';
+//  }
 }

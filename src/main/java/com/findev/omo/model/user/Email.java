@@ -1,12 +1,20 @@
 package com.findev.omo.model.user;
 
+import lombok.AccessLevel;
+import lombok.NoArgsConstructor;
+
+import javax.persistence.Column;
+import javax.persistence.Embeddable;
 import java.util.Objects;
 
 import static java.util.regex.Pattern.matches;
 
+@Embeddable
+@NoArgsConstructor(access = AccessLevel.PROTECTED)
 public class Email {
 
-  private final String address;
+  @Column(name = "email")
+  private String address;
 
   public Email(String address) {
     // TODO validation
@@ -16,9 +24,9 @@ public class Email {
 //      "address length must be between 4 and 50 characters."
 //    );
 //    checkArgument(checkAddress(address), "Invalid email address: " + address);
-
     this.address = address;
   }
+
 
   private static boolean checkAddress(String address) {
     return matches("[\\w~\\-.+]+@[\\w~\\-]+(\\.[\\w~\\-]+)+", address);

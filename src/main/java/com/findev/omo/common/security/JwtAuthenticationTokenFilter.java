@@ -1,6 +1,5 @@
 package com.findev.omo.common.security;
 
-import com.findev.omo.model.user.Email;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.security.core.GrantedAuthority;
@@ -71,15 +70,14 @@ public class JwtAuthenticationTokenFilter extends GenericFilterBean {
             response.setHeader(headerKey, refreshedToken);
           }
 
-          Long userKey = claims.userKey;
-          String name = claims.name;
-          Email email = claims.email;
+          String memberId = claims.memberId;
+          String name = claims.memberNickName;
 
           List<GrantedAuthority> authorities = obtainAuthorities(claims);
 
-          if (nonNull(userKey) && isNotEmpty(name) && nonNull(email) && authorities.size() > 0) {
+          if (nonNull(memberId) && isNotEmpty(name) && nonNull(memberId) && authorities.size() > 0) {
             JwtAuthenticationToken authentication =
-              new JwtAuthenticationToken(new JwtAuthentication(userKey, name, email), null, authorities);
+              new JwtAuthenticationToken(new JwtAuthentication(memberId, name), null, authorities);
             authentication.setDetails(new WebAuthenticationDetailsSource().buildDetails(request));
             SecurityContextHolder.getContext().setAuthentication(authentication);
           }
